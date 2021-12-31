@@ -1,0 +1,37 @@
+{
+    "name": "package",
+    "version": "1.0.0",
+    "description": "description",
+    "main": "app.mjs",
+    "engines": {
+        "node": "16.x",
+        "pnpm": "6.x"
+    },
+    "scripts": {
+        "build": "webpack --config webpack.prod.cjs",
+        "start": "node --experimental-specifier-resolution=node app.mjs",
+        "devserve": "webpack serve --config webpack.dev.cjs",
+        "serve": "nodemon -r dotenv/config --experimental-specifier-resolution=node --config config/nodemon.json",
+        "test": "concurrently -ikp none --kill-others-on-fail \"pnpm:serve\" \"pnpm:devserve\"",
+        "test:alt": "node --experimental-specifier-resolution=node test.mjs",
+        "test:py": "python3 test.py"
+    },
+    "author": "cyrus01337",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "@handlebars/allow-prototype-access": "^1.0.5",
+        "express": "^4.17.2",
+        "express-handlebars": "^6.0.2",
+        "express-promise-router": "^4.1.1",
+        "handlebars": "^4.7.7",
+        "pg-promise": "^10.11.1"
+    },
+    "devDependencies": {
+        "concurrently": "^6.5.1",
+        "dotenv": "^10.0.0",
+        "eslint": "^8.5.0",
+        "nodemon": "^2.0.15",
+        "webpack": "^5.65.0",
+        "webpack-cli": "^4.9.1"
+    }
+}
