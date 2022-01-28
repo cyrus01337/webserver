@@ -1,6 +1,6 @@
 function section(name, options) {
-    this._sections ??= {};
-    this._sections[name] = options.fn(this);
+    this.sections ??= {};
+    this.sections[name] = options.fn(this);
 
     return null;
 }

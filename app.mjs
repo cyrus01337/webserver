@@ -2,8 +2,10 @@ import path from "path";
 import process from "process";
 import url from "url";
 
-import handlebars from "handlebars";
 import express from "express";
+import favicon from "serve-favicon";
+import glob from "glob";
+import handlebars from "handlebars";
 import { allowInsecurePrototypeAccess } from "@handlebars/allow-prototype-access";
 import { engine } from "express-handlebars";
 
@@ -12,6 +14,7 @@ import helpers from "./src/helpers";
 import routes from "./src/routes";
 
 const PORT = process.env.PORT || 3000,
+      FAVICON = process.env.FAVICON || "./favicon.ico",
       DIRNAME = path.dirname(url.fileURLToPath(import.meta.url));
 let app = express();
 
@@ -22,19 +25,27 @@ app.engine("hbs", engine({
     helpers,
 }));
 
-app.set("trust proxy", true);
+app.enable("trust proxy");
 app.set("view engine", "hbs");
-app.set("views", "./src/routes");
+app.set("views", glob.sync("./src/routes/**"));
 app.set("dirname", DIRNAME);
 
+app.use("/dist", express.static("./dist"));
+app.use("/layouts", express.static("./src/layouts"));
 app.use(
     express.json(),
-    express.static("./dist"),
-    express.static("./src/layouts"),
     express.static("./src/routes"),
     express.urlencoded({ extended: false }),
     routes
 );
+
+try {
+    app.use(favicon(FAVICON));
+} catch (error) {
+    app.get("/favicon.ico", (req, res) => res.sendStatus(204));
+
+    console.error(`Skipped error:\n\n${error.stack}\n`);
+}
 
 
 app.on("error", error => console.error(error.stack));
