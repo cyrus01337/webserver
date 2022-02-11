@@ -13,8 +13,8 @@
     "scripts": {
         "build": "webpack --config ./config/webpack.prod.cjs",
         "start": "node --experimental-specifier-resolution=node ./app.mjs",
-        "devserve": "webpack serve --config ./config/webpack.dev.cjs",
-        "serve": "nodemon -r dotenv/config --experimental-specifier-resolution=node --config ./config/nodemon.json",
+        "devserve": "webpack serve --config ./config/react/webpack.dev.cjs",
+        "serve": "nodemon -r dotenv/config --experimental-specifier-resolution=node --config ./config/react/nodemon.json",
         "test": "concurrently -ikn \"server,browser\" \"yarn:serve\" \"yarn:devserve\"",
         "test:alt": "node --experimental-specifier-resolution=node ./test.mjs",
         "test:py": "python3 ./test.py"
