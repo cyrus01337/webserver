@@ -4,11 +4,11 @@ import React from "react";
 
 function App() {
     return (
-        <div id="app">
+        <React.Fragment>
             <h1>index</h1>
 
             <p>index</p>
-        </div>
+        </React.Fragment>
     );
 }
 
