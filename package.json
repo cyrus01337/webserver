@@ -27,7 +27,8 @@
         "glob": "^7.2.0",
         "handlebars": "^4.7.7",
         "pg-promise": "^10.11.1",
-        "serve-favicon": "^2.5.0"
+        "serve-favicon": "^2.5.0",
+        "utils": "./src/utils/"
     },
     "devDependencies": {
         "concurrently": "^7.0.0",
