@@ -12,5 +12,6 @@ body * {
 .root {
     height: 100%;
     position: absolute;
+    overflow: hidden;
     width: 100%;
 }

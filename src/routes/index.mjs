@@ -2,20 +2,19 @@ import path from "path";
 import url from "url";
 
 import Router from "express-promise-router";
-import glob from "glob";
+
+import utils from "utils/server";
 
 const DIRNAME = path.dirname(url.fileURLToPath(import.meta.url));
 let router = new Router();
-let routes = glob.sync(`${DIRNAME}/**/`);
+let routes = await utils.getAllRoutes(DIRNAME);
 
 
 router.get("/", async (req, res) => res.render("index"));
 
 
-for (const route of routes.slice(1)) {
-    let imported = await import(route);
-
-    router.use(imported.default);
+for (const route of routes) {
+    router.use(route);
 }
 
 export default router;
